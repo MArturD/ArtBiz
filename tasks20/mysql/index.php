@@ -14,6 +14,9 @@
     $users = $statement->fetchALL(PDO::FETCH_ASSOC); // передаем данные в переменную users
     ?>
     <div class="cont">
+        <div class="creat">
+            <a href="create.php" class="create">Create</a>
+        </div>
         <table>
             <tr>
                 <th>id</th>
@@ -42,6 +45,14 @@
                 margin: 0;
                 padding: 0;
                 box-sizing:border-box;
+            }
+            .create{
+                background-color: orange;
+                border-radius:15%;
+                padding: 5px;
+            }
+            .creat{
+                margin-top: 20px;
             }
            .cont{
             display: flex;
