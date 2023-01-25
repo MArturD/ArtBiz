@@ -31,8 +31,8 @@
                     <td><?php echo $user["name"] ?></td>
                     <td><?php echo $user["email"] ?></td>
                     <td>
-                        <a href="#">Show</a>
-                        <a href="#">Edit</a>
+                        <a href="show.php?id=<?php echo $user["id"]; ?>">Show</a>
+                        <a href="edit.php?id=<?php echo $user["id"]; ?>">Edit</a>
                         <a href="#">Delete</a>
                     </td>
                 </tr>
