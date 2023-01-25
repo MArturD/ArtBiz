@@ -13,8 +13,18 @@
     $statement->execute($_GET); 
     $user = $statement->fetch(PDO::FETCH_ASSOC); 
     ?>
-    <h1><?php echo $user["name"] ?></h1>
-    <p><?php echo $user["email"]</p>
+    <div class="cont">
+        <div class="wrap">
+            <div class="name">
+                <p class="p_m1">Name: </p>
+                <p><?php echo " " .$user["name"] ?></p>
+            </div>
+            <div class="email">
+                <p class="p_m1">Email:</p>
+                <p><?php echo " " .$user["email"] ?></p>
+            </div>
+        </div>
+    </div>
 
         <style>
             *{
@@ -22,32 +32,26 @@
                 padding: 0;
                 box-sizing:border-box;
             }
-            .create{
-                background-color: orange;
-                border-radius:15%;
-                padding: 5px;
-            }
-            .creat{
+            .cont{
                 margin-top: 20px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
             }
-           .cont{
-            display: flex;
-            justify-content: center;
-           }
-           th{
-            width: 125px;
-           }
-           a{;
-            background-color: #329eff;
-            border-radius: 5px;
-            color: black;
-            text-decoration: none;
-            padding: 2px;
-           }
-           td{
-            pading-top: 20px;
-            text-align: center;
-           }
+            p{
+                font-size:25px;
+            }
+            .name{
+                display: flex;
+            }
+            .email{
+                display: flex;
+            }
+            .p_m1{
+                color: #227c77;
+                margin-right: 20px;
+            }
+
     </style>
 </body>
 </html>
