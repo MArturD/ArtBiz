@@ -33,7 +33,7 @@
                     <td>
                         <a href="show.php?id=<?php echo $user["id"]; ?>">Show</a>
                         <a href="edit.php?id=<?php echo $user["id"]; ?>">Edit</a>
-                        <a href="#">Delete</a>
+                        <a href="delete.php?id=<?php echo $user["id"]; ?>">Delete</a>
                     </td>
                 </tr>
                 <?php endforeach ?>
