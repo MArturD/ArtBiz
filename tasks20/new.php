@@ -1,3 +1,7 @@
+<?php
+session_start($_SESSION);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +12,7 @@
 </head>
 <body>
     <form action="new2.php" method="post">
+        Уже есть в базе
         <input type="text" name="text">
         <button type="submit">Отправить</button>
     </form>
