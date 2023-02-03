@@ -43,7 +43,7 @@ session_start();
                 unset($_SESSION["success"]); ?>
             </div>
             <?php endif; ?>
-            <form action="">
+            <form action="" method="post">
                 <div class="form-group">
                     <label class="form-label" for="username">Email</label>
                     <input type="email" id="username" class="form-control" placeholder="Эл. адрес" value="">
