@@ -15,7 +15,7 @@ function get_user($email,$password)
     $statement = $pdo->prepare($sql);
     $statement->execute([
         "email" => $email,
-        "password" => password_hash($password, PASSWORD_DEFAULT),
+        "password" => $password,
     ]);
 
     $_SESSION["success"] = "Регистрация успешна";

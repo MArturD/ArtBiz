@@ -43,14 +43,14 @@ session_start();
                 unset($_SESSION["success"]); ?>
             </div>
             <?php endif; ?>
-            <form action="" method="post">
+            <form action="login.php" method="post">
                 <div class="form-group">
                     <label class="form-label" for="username">Email</label>
-                    <input type="email" id="username" class="form-control" placeholder="Эл. адрес" value="">
+                    <input type="email" id="username" class="form-control" placeholder="Эл. адрес" value="" name="email">
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="password">Пароль</label>
-                    <input type="password" id="password" class="form-control" placeholder="" >
+                    <input type="password" id="password" class="form-control" placeholder="" name="password">
                 </div>
                 <button type="submit" class="btn btn-default float-right">Войти</button>
             </form>
