@@ -43,6 +43,12 @@ session_start();
                 unset($_SESSION["success"]); ?>
             </div>
             <?php endif; ?>
+                <?php if ($_SESSION["error"]): ?>
+                    <div class="alert alert-danger text-dark">
+                        <?php echo $_SESSION["error"];
+                        unset($_SESSION["error"]); ?>
+                    </div>
+                <?php endif; ?>
             <form action="login.php" method="post">
                 <div class="form-group">
                     <label class="form-label" for="username">Email</label>

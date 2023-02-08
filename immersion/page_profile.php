@@ -1,3 +1,10 @@
+<?php
+session_start();
+require "functions.php"; ?>
+<pre>
+<?php var_dump($_SESSION['user']); ?>
+</pre>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
