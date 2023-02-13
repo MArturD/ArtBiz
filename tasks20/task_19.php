@@ -1,3 +1,15 @@
+<?php
+//require "upload.php";
+
+//for ($i=0; $i<count($_FILES['image']['name']); $i++ ){
+//    upload_file($_FILES['image']['name'][$i], $_FILES['image']['tmp_name'][$i]);
+//}
+
+$pdo = new PDO("mysql:host=localhost;dbname=qwert", "root", "");
+$statement = $pdo->query("SELECT * FROM `files`");
+$avatar = $statement->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,19 +79,18 @@
                                 <div class="panel-content image-gallery">
                                     <div class="row">
                                         <div class="col-md-3 image">
+                                            <?php foreach ($avatar as $image): ?>
+                                            <img src="uploads/<?php echo $image['file']; ?>">
+<!--                                            --><?php //var_dump($image['file']); ?>
+                                            <?php endforeach; ?>
 
+                                        </div>
+
+                                        <div class="col-md-3 image">
                                             <img src="">
-
-
                                         </div>
 
-                                        <div class="col-md-3 image">
-                                            <img src="img/demo/gallery/2.jpg">
-                                        </div>
 
-                                        <div class="col-md-3 image">
-                                            <img src="img/demo/gallery/3.jpg">
-                                        </div>
                                     </div>
                                 </div>
                             </div>

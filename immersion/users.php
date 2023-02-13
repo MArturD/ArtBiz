@@ -108,7 +108,7 @@ $user = get_user();
                                         <a class="dropdown-item" href="status.html">
                                             <i class="fa fa-sun"></i>
                                         Установить статус</a>
-                                        <a class="dropdown-item" href="media.html">
+                                        <a class="dropdown-item" href="media.php">
                                             <i class="fa fa-camera"></i>
                                             Загрузить аватар
                                         </a>

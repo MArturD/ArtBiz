@@ -1,3 +1,12 @@
+<?php
+$pdo = new PDO("mysql:host=localhost;dbname=qwert;","root", "");
+$sql = "SELECT * FROM `login_table` WHERE id=:id";
+$statement = $pdo->prepare($sql);
+$statement->execute($_FILES);
+$user = $statement->fetch(PDO::FETCH_ASSOC);
+var_dump($user);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +47,7 @@
             </h1>
 
         </div>
-        <form action="">
+        <form action="mediaUploads.php" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -53,7 +62,8 @@
 
                                 <div class="form-group">
                                     <label class="form-label" for="example-fileinput">Выберите аватар</label>
-                                    <input type="file" id="example-fileinput" class="form-control-file">
+                                    <input type="hidden" name="id" value="<?php echo $user["id"]; ?>"   >
+                                    <input type="file" id="example-fileinput" class="form-control-file" name="avatar[]" multiple value="<?php echo $user["avatar"]; ?>">
                                 </div>
 
 

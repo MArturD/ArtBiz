@@ -32,7 +32,7 @@
                     <td><?php echo $user["email"] ?></td>
                     <td>
                         <a href="show.php?id=<?php echo $user["id"]; ?>">Show</a>
-                        <a href="edit.phpc">Edit</a>
+                        <a href="edit.php">Edit</a>
                         <a href="delete.php?id=<?php echo $user["id"]; ?>">Delete</a>
                     </td>
                 </tr>

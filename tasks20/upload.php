@@ -8,15 +8,15 @@ function upload_file($filename,$tmp_name){
     $filename = uniqid() . "." . $result['extension'];
     move_uploaded_file($tmp_name, 'uploads/' . $filename);
 
-$file= $filename;
-$pdo = new PDO("mysql:host=localhost;dbname=qwert", "root", "");
-$sql = "INSERT INTO `files`(`file`) VALUES (:file)";
-$statement = $pdo->prepare($sql);
-$statement->execute([
-    "file" => $file,
-]);
-$user = $statement->fetch(PDO::FETCH_ASSOC);
+    $file= $filename;
+    $pdo = new PDO("mysql:host=localhost;dbname=qwert", "root", "");
+    $sql = "INSERT INTO `files`(`file`) VALUES (:file)";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([
+        "file" => $file,
+    ]);
 
 }
 
-//header("Location: task_19.php");
+
+header("Location: task_19.php");
