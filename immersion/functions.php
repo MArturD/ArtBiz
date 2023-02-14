@@ -97,3 +97,11 @@ function is_equal($user,$this_user){
     }
     return false;
 }
+
+//function create_new_user(){
+//    $sql = "INSERT INTO  login_table (name,jobs,number,adress,email,password) VALUES (:name,:jobs,:number,:adress,:email,:password)";
+//    $statement = $pdo->prepare($sql);
+//    $statement->execute($_POST);
+//}
+
+

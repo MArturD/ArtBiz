@@ -1,5 +1,8 @@
 <?php
-var_dump($_FILES);
+require "functions.php";
+var_dump($_GET);
+
+//var_dump($_FILES);
 for ($i=0; $i<count($_FILES['avatar']['name']); $i++ ){
     upload_file($_FILES['avatar']['name'][$i], $_FILES['avatar']['tmp_name'][$i]);
 }
@@ -14,11 +17,14 @@ function upload_file($filename,$tmp_name){
     $statement = $pdo->prepare($sql);
     $statement->execute([
         "avatar" => $avatar,
-        "id" => 3
+        "id" => $_GET['id'],
     ]);
 
 }
-function get_id(){
-$pdo = new PDO("mysql:host=localhost;dbname=qwert", "root", "");
-$statement = $pdo->query("SELECT * FROM `login_table` WHERE id=:id");
-}
+
+redirect("media.php?id=" . $_GET["id"]);
+
+//function get_id(){
+//$pdo = new PDO("mysql:host=localhost;dbname=qwert", "root", "");
+//$statement = $pdo->query("SELECT * FROM `login_table` WHERE id=:id");
+//}
