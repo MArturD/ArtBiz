@@ -53,6 +53,15 @@ function creat_user($email, $password)
     exit;
 }
 
+function delete_user(){
+
+    $pdo = new PDO('mysql:host=localhost;dbname=qwert;','root', '');
+    $sql = "DELETE FROM `login_table` WHERE id=:id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute($_GET);
+    header('Location: /immersion/users.php#');
+}
+
 function login($email, $password)
 {
     $pdo = connection();
@@ -97,6 +106,8 @@ function is_equal($user,$this_user){
     }
     return false;
 }
+
+
 
 //function create_new_user(){
 //    $sql = "INSERT INTO  login_table (name,jobs,number,adress,email,password) VALUES (:name,:jobs,:number,:adress,:email,:password)";

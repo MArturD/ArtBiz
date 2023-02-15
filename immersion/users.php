@@ -7,6 +7,7 @@ is_logged_in();
 $user = get_user();
 //var_dump($_SESSION['user']);
 //var_dump(get_user_authentication()['id']);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,7 +113,7 @@ $user = get_user();
                                             <i class="fa fa-camera"></i>
                                             Загрузить аватар
                                         </a>
-                                        <a href="#" class="dropdown-item" onclick="return confirm('are you sure?');">
+                                        <a href="delete.php?id=<?php echo $value['id']; ?>" class="dropdown-item" onclick="return confirm('are you sure?');">
                                             <i class="fa fa-window-close"></i>
                                             Удалить
                                         </a>
