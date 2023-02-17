@@ -36,7 +36,7 @@
 <div class="container mt-3">
     <div class="row">
         <div class="col-12">
-            <a class="btn btn-success" href="#">Добавить</a>
+            <a class="btn btn-success" href="create.php">Добавить</a>
             <div class="row">
                 <table class="table mt-3">
                     <thead>
@@ -52,10 +52,10 @@
                     <?php foreach ($posts as $post) { ?>
                         <tr>
                             <th scope="row"><?php echo $post["id"]; ?></th>
-                            <td><?php echo $post["title"]; ?></td>
+                            <td><a href="show.php?id=<?php echo $post["id"]; ?>"><?php echo $post["title"]; ?></a></td>
                             <td>
-                                <a href="edit.php?id=" class="btn btn-warning">Изменить</a>
-                                <a href="delete.php?id=" class="btn btn-danger">Удалить</a>
+                                <a href="edit.php?id=<?php echo $post["id"]; ?>" class="btn btn-warning">Изменить</a>
+                                <a href="delete.php?id=<?php echo $post["id"]; ?>" class="btn btn-danger">Удалить</a>
                             </td>
                         </tr>
                     <?php } ?>
