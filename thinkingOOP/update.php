@@ -6,3 +6,6 @@ $post = $db ->update("posts", $_POST,$id);
 var_dump($post);
 var_dump($id);
 
+header("Location: index.php");
+
+

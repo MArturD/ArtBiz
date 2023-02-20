@@ -1,4 +1,9 @@
-
+<?php
+include "function.php";
+$db = include "database/start.php";
+$id= $_GET['id'];
+$post = $db ->getOne("posts",$id);
+?>
 <!doctype html>
 <html lang="ru">
 <head>
@@ -15,8 +20,9 @@
             <form action="update.php?id=<?php echo $_GET['id'] ?>" method="POST">
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" name="title" class="form-control">
+                    <input type="text" name="title" class="form-control" value="<?php echo $post['title'] ?>">
                 </div>
+                <?php ?>
                 <div class="form-group mt-3">
                     <button class="btn btn-success">Edit</button>
                 </div>
