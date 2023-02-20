@@ -1,7 +1,7 @@
 <?php
-$config = include "config.php";
-include "database/QueryBuilder.php";
-include "database/ConnectionBD.php";
+$config = include_once "config.php";
+include_once "database/QueryBuilder.php";
+include_once "database/ConnectionBD.php";
 
 //$connection = new Connection();
 //$pdo = $connection ->make();

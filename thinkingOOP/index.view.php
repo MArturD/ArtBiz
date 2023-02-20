@@ -55,7 +55,7 @@
                             <td><a href="show.php?id=<?php echo $post["id"]; ?>"><?php echo $post["title"]; ?></a></td>
                             <td>
                                 <a href="edit.php?id=<?php echo $post["id"]; ?>" class="btn btn-warning">Изменить</a>
-                                <a href="delete.php?id=<?php echo $post["id"]; ?>" class="btn btn-danger">Удалить</a>
+                                <a href="delete.php?id=<?php echo $post["id"]; ?>" class="btn btn-danger" onclick="return confirm('Вы точно хотите убить пользователя?')">Удалить</a>
                             </td>
                         </tr>
                     <?php } ?>
