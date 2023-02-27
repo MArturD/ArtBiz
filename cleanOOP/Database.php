@@ -16,9 +16,16 @@ class Database {
         }
         return self::$instance;
 }
-    public function query($sql){
+    public function query($sql, $params = []){
         $this->error = false;
         $this->query = $this->pdo->prepare($sql);
+        if (count($params)){
+            $i = 1;
+            foreach ($params as $param){
+                $this->query->bindValue($i, $param);
+                $i++;
+            }
+        }
         if (!$this->query->execute()){
             $this->error = true;
         }else {
@@ -35,5 +42,33 @@ class Database {
     }
     public function result(){
         return $this->result;
+    }
+
+    public function get($table, $where = []){
+        return $this->action('SELECT *',$table,$where);
+    }
+
+    public function delete($table, $where = []){
+        return $this->action('DELETE',$table,$where);
+    }
+
+    public function action($action,$table,$where = []){
+        if (count($where) === 3){
+            $operators = ['=','<','>','<=','>='];
+
+            $field = $where[0];
+            $operator = $where[1];
+            $value = $where[2];
+
+            if (in_array($operator,$operators)){
+                $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
+//                var_dump($sql);die;
+                if (!$this->query($sql, [$value])->error()){
+                    return $this;
+                }
+
+            }
+        }
+        return false;
     }
 }
