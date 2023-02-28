@@ -4,7 +4,7 @@ class Database {
     private $pdo, $query, $error = false, $count, $result;
     private function __construct(){
         try {
-            $this->pdo = new PDO("mysql:dbname=marlin_clean_oop;host=localhost", 'root', '');
+            $this->pdo = new PDO('mysql:dbname=' . Config::get('mysql.database') . ';host=' . Config::get('mysql.host'), Config::get('mysql.username'), Config::get('mysql.password'));
 //    echo "ok";
         }catch (PDOException $exception){
             die($exception->getMessage());
@@ -71,4 +71,39 @@ class Database {
         }
         return false;
     }
+
+    public function insert($table, $fields = []){
+        $values = '';
+        foreach($fields as $field){
+            $values .= "?,";
+        }
+        $values = rtrim($values,',');
+        $sql = "INSERT INTO {$table} (`" . implode('`, `', array_keys($fields)) . "`) VALUES (" . $values . ")";
+
+//        var_dump($fields);die;
+        if (!$this->query($sql,$fields)->error()){
+            return true;
+        }
+        return false;
+    }
+
+    public function update($table,$id,$fields = []){
+        $set = '';
+        foreach ($fields as $key => $field){
+            $set .= "{$key} = ? ,";
+        }
+        $set = trim($set,',');
+        $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
+
+        if (!$this->query($sql,$fields)->error()){
+            return true;
+        }
+        return false;
+    }
+
+    public function first(){
+        return $this->result()[0];
+    }
+
+
 }
