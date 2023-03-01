@@ -3,6 +3,8 @@ include_once "Config.php";
 include_once "Database.php";
 include_once "Validate.php";
 include_once "Input.php";
+include_once "Token.php";
+include_once "Session.php";
 //$users = Database::getInstance()->query("SELECT * FROM users WHERE user_name IN (? , ?)", ['Artur','Dima']);
 //$users = Database::getInstance()->get('users', ['user_name', '=', "Artur"]);
 //$users = Database::getInstance()->delete('users', ['user_name', '=', "Dima"]);
@@ -90,5 +92,9 @@ if (Input::exists()){
     <labbel>Повторите Пароль
         <input type="text" name="password_again">
     </labbel> <br>
+
+    <input type="hidden" name="token" value="<?php echo Token::generate() ?>">
+
     <button type="submit">Отправить</button>
+
 </form>
