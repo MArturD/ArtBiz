@@ -6,6 +6,9 @@ include_once "Validate.php";
 include_once "Input.php";
 include_once "Token.php";
 include_once "Session.php";
+include_once "test.php";
+include_once "User.php";
+include_once "Redirect.php";
 
 //Database::getInstance()->insert('users', [
 //	'username' => 'Marlin',
@@ -49,12 +52,13 @@ $users = Database::getInstance()->get('users', ['username', '=', 'Marlin']);
 //	}
 //}
 
+Redirect::to(404);
 
 if (Input::exists()) {
     if (Token::check(Input::get('token'))) {
         $validate = new Validate();
         $validation = $validate->check($_POST, [
-            'username'       => [
+            'user_name'       => [
                 'required' => true,
                 'min'      => 2,
                 'max'      => 15,
@@ -72,9 +76,16 @@ if (Input::exists()) {
 
         //	var_dump($validation->errors());
 
-        if ($validation->passed()) {
-            Session::flash('success', 'register seccess');
-            header('Location: test.php');
+        if ($validation->passed()){
+            $user = new User;
+
+            $user->create([
+                    'user_name' => Input::get('user_name'),
+                    'password' => password_hash(Input::get('password'), PASSWORD_DEFAULT)
+            ]);
+            Session::flash('success', 'register success');
+            Redirect::to('test.php');
+//            header('Location: test.php');
         } else {
             foreach ($validation->errors() as $error) {
                 echo $error . '<br>';
@@ -88,9 +99,10 @@ if (Input::exists()) {
 
 
 <form action="" method="post">
+       <?php echo Session::flash('success'); ?>
     <div class="field">
-        <label for="username">Username</label>
-        <input type="text" name="username" value="<?php echo Input::get('username'); ?>">
+        <label for="user_name">Username</label>
+        <input type="text" name="user_name" value="<?php echo Input::get('user_name'); ?>">
     </div>
     <div class="field">
         <label for="password">Password</label>
