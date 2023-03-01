@@ -1,100 +1,108 @@
 <?php
+session_start();
 include_once "Config.php";
 include_once "Database.php";
 include_once "Validate.php";
 include_once "Input.php";
 include_once "Token.php";
 include_once "Session.php";
-//$users = Database::getInstance()->query("SELECT * FROM users WHERE user_name IN (? , ?)", ['Artur','Dima']);
-//$users = Database::getInstance()->get('users', ['user_name', '=', "Artur"]);
-//$users = Database::getInstance()->delete('users', ['user_name', '=', "Dima"]);
+
 //Database::getInstance()->insert('users', [
-//    "user_name" => "Dima",
-//    "password" => "321321"
+//	'username' => 'Marlin',
+//	'password' => 'pass',
 //]);
-//$id = 3;
-//Database::getInstance()->update('users', $id, [
-//    "user_name" => "Misha",
-//    "password" => "000"
+//Database::getInstance()->update('users', 5, [
+//	'username' => 'Marlin2',
+//	'password' => 'pass2',
 //]);
 
 $GLOBALS["config"] = [
-    'mysql' => [
-        "host" => "localhost",
-        "username" => "root",
-        "password" => "",
-        "database" => "marlin_clean_oop",
+    'mysql'   => [
+        "host"      => "localhost",
+        "username"  => "root",
+        "password"  => "",
+        "database"  => "marlin_cleanoop",
         "something" => [
             "no" => [
                 "foo" => [
-                    "bar" => [
-                        "bar" => "baz"
-                    ]
+                    "bar" => "baz"
                 ]
             ]
         ]
+    ],
+    'session' => [
+        'token_name' => 'token',
     ]
 ];
 
-$users = Database::getInstance()->get('users', ['user_name', '=', 'Artur']);
 
-//var_dump($users->first());
+$users = Database::getInstance()->get('users', ['username', '=', 'Marlin']);
+//Database::getInstance()->delete('users', ['username', '=', 'name2']);
 
 
-if ($users->error()){
-    echo "This error";
-}else{
-    foreach ($users->result() as $user){
-        echo $user['id'] . $user['user_name'] . "<br>";
-    }
-}
+//if ($users->error()) {
+//	echo "This Error";
+//} else {
+//	foreach ($users->result() as $user) {
+//		echo $user["id"] . ". " . $user["username"] . "<br>";
+//		//		echo $user . "<br>";
+//	}
+//}
 
-?>
 
-<?php
-
-if (Input::exists()){
-    $validate = new Validate();
-
-    $validation = $validate->check($_POST, [
-            'username' =>[
-                    'required' => true,
-                    'min' => 2,
-                    'max' => 15,
-                    'unique' => 'users',
+if (Input::exists()) {
+    if (Token::check(Input::get('token'))) {
+        $validate = new Validate();
+        $validation = $validate->check($_POST, [
+            'username'       => [
+                'required' => true,
+                'min'      => 2,
+                'max'      => 15,
+                'unique'   => 'users'
             ],
-            'password' => [
-                    'required' => true,
-                    'min' => 3,
+            'password'       => [
+                'required' => true,
+                'min'      => 3,
             ],
             'password_again' => [
-                    'required' => true,
-                    'matches' => 'password'
-            ]
-    ]);
-    if ($validation->passed()){
-        echo 'passed';
-    }else{
-        foreach ($validation->errors() as $error){
-            echo $error . "<br>";
+                'required' => true,
+                'matches'  => 'password'
+            ],
+        ]);
+
+        //	var_dump($validation->errors());
+
+        if ($validation->passed()) {
+            Session::flash('success', 'register seccess');
+            header('Location: test.php');
+        } else {
+            foreach ($validation->errors() as $error) {
+                echo $error . '<br>';
+            }
         }
     }
+
 }
 
 ?>
-<form action="#" method="post">
-    <labbel>Имя
-    <input type="text" name="username" value="<?php echo Input::get('username')?>">
-    </labbel> <br>
-    <labbel>Пароль
+
+
+<form action="" method="post">
+    <div class="field">
+        <label for="username">Username</label>
+        <input type="text" name="username" value="<?php echo Input::get('username'); ?>">
+    </div>
+    <div class="field">
+        <label for="password">Password</label>
         <input type="text" name="password">
-    </labbel> <br>
-    <labbel>Повторите Пароль
+    </div>
+    <div class="field">
+        <label for="password_again">Password again</label>
         <input type="text" name="password_again">
-    </labbel> <br>
+    </div>
+    <input type="hidden1" name="token" value="<?php echo Token::generate() ?>">
 
-    <input type="hidden" name="token" value="<?php echo Token::generate() ?>">
-
-    <button type="submit">Отправить</button>
-
+    <div class="field">
+        <button type="submit">Submit</button>
+    </div>
 </form>
