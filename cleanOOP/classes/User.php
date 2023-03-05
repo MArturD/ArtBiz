@@ -6,8 +6,8 @@ class User {
         $this->db = Database::getInstance();
         $this->session_name = Config::get('session.user_session');
         if (!$user){
-            if (Session::exists(Config::get($this->session_name))){
-            $user = Session::get(Config::get($this->session_name));
+            if (Session::exists($this->session_name)){
+            $user = Session::get($this->session_nam);
             if ($this->find($user)){
                 $this->isLoggedIn = true;
             }else{
@@ -50,6 +50,8 @@ class User {
         return $this->data;
     }
 
-    public function
+    public function isLoggedIn(){
+        return $this->isLoggedIn;
+    }
 }
 
