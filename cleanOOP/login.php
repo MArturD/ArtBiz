@@ -49,8 +49,8 @@ if (Input::exists()) {
         <input type="text" name="password">
     </div>
     <div class="field">
-        <label for="checkbox">Password</label>
-        <input type="checkbox" name="checkbox">
+        <label for="checkbox">Запомнить меня</label>
+        <input type="checkbox" name="remember">
     </div>
     <input type="hidden1" name="token" value="<?php echo Token::generate() ?>">
     <div class="field">

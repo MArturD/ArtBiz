@@ -9,6 +9,7 @@ include_once "classes/Session.php";
 include_once "test.php";
 include_once "classes/User.php";
 include_once "classes/Redirect.php";
+include_once "classes/Cookie.php";
 
 
 //Database::getInstance()->insert('users', [
@@ -37,9 +38,22 @@ $GLOBALS["config"] = [
     'session' => [
         'token_name' => 'token',
         'user_session' => 'user'
+    ],
+    'cookie' => [
+        'cookie_name' => 'hash',
+        'cookie_expiry' => 604800,
     ]
-];
 
+];
+if (Cookie::exists(Config::get('cookie.cookie_name')) && !Session::exists(Config::get('session.user_session'))){
+    $hach = Cookie::get(Config::get('cookie.cookie_name'));
+    $hachCheck = Database::getInstance()->get('user_session', ['hach', '=', $hach]);
+
+    if ($hachCheck->count()){
+        $user = new User($hachCheck->first()->user_id);
+        $user->login();
+    }
+}
 
 $users = Database::getInstance()->get('users', ['user_name', '=', 'Artur']);
 //Database::getInstance()->delete('users', ['username', '=', 'name2']);

@@ -25,16 +25,20 @@ class User
         $this->db->insert('users', $fields);
     }
 
-    public function login($email = null, $password = null)
-    {
-        if ($email) {
+//    public function login($email = null, $password = null, $remember = false){
+        if (!$email && !$password && $this->exists()){
+            Session::put($this->session_name, $this->data()->id);
+        }else {
             $user = $this->find($email);
-            if ($user) {
-                if (password_verify($password, $this->data->password)) {
-//                    Session::put($this->session_name ,$this->data()->id);
+            if ($email) {
+                $user = $this->find($email);
+                if ($user) {
+                    if (password_verify($password, $this->data->password)) {
+                        Session::put($this->session_name, $this->data()->id);
+                        return true;
+//                    Session::put(Config::get('session.user_session'), $this->data()->id);
 //                    return true;
-                    Session::put(Config::get('session.user_session'), $this->data()->id);
-                    return true;
+                    }
                 }
             }
         }
@@ -62,6 +66,10 @@ class User
     public function isLoggedIn()
     {
         return $this->isLoggedIn;
+    }
+
+    public function logout(){
+        return Session::delete($this->session_name);
     }
 }
 
