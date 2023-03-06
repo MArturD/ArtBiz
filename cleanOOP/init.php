@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once "classes/Config.php";
 include_once "classes/Database.php";
 include_once "classes/Validate.php";

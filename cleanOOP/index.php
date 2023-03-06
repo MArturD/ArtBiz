@@ -6,8 +6,10 @@ include_once "init.php";
 $user = new User;
 //$anotherUser = new User(28);
 
+//var_dump($user);
+
 echo $user->data()->user_name;
-var_dump($user->data());
+//var_dump($user->data());
 
 //if ($user->isLoggedIn()){
 //

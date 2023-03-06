@@ -1,50 +1,5 @@
 <?php
-session_start();
-include_once "init.php";
-
-//Database::getInstance()->insert('users', [
-//	'username' => 'Marlin',
-//	'password' => 'pass',
-//]);
-//Database::getInstance()->update('users', 5, [
-//	'username' => 'Marlin2',
-//	'password' => 'pass2',
-//]);
-
-$GLOBALS["config"] = [
-    'mysql'   => [
-        "host"      => "localhost",
-        "username"  => "root",
-        "password"  => "",
-        "database"  => "marlin_clean_oop",
-        "something" => [
-            "no" => [
-                "foo" => [
-                    "bar" => "baz"
-                ]
-            ]
-        ]
-    ],
-    'session' => [
-        'token_name' => 'token',
-    ]
-];
-
-
-$users = Database::getInstance()->get('users', ['username', '=', 'Marlin']);
-//Database::getInstance()->delete('users', ['username', '=', 'name2']);
-
-
-//if ($users->error()) {
-//	echo "This Error";
-//} else {
-//	foreach ($users->result() as $user) {
-//		echo $user["id"] . ". " . $user["username"] . "<br>";
-//		//		echo $user . "<br>";
-//	}
-//}
-
-//Redirect::to(404);
+require_once "init.php";
 
 if (Input::exists()) {
     if (Token::check(Input::get('token'))) {
@@ -56,10 +11,10 @@ if (Input::exists()) {
                 'max'      => 15,
                 'unique'   => 'users'
             ],
-            'email' => [
-              'required' => true,
-              'min' => 2,
-              'max' => 35,
+            'email'          => [
+                'required' => true,
+                'email'    => true,
+                'unique'   => 'users'
             ],
             'password'       => [
                 'required' => true,
@@ -71,19 +26,20 @@ if (Input::exists()) {
             ],
         ]);
 
+
         //	var_dump($validation->errors());
 
-        if ($validation->passed()){
-            $user = new User;
+        if ($validation->passed()) {
 
+            $user = new User();
             $user->create([
                 'user_name' => Input::get('user_name'),
-                'password' => password_hash(Input::get('password'), PASSWORD_DEFAULT),
-                'email' => Input::get('email'),
+                'email'    => Input::get('email'),
+                'password' => password_hash(Input::get('password'), PASSWORD_DEFAULT)
             ]);
-            Session::flash('success', 'register success');
-//            Redirect::to('test.php');
-//            header('Location: test.php');
+
+            Session::flash('success', 'user register done');
+            //			header('Location: test.php');
         } else {
             foreach ($validation->errors() as $error) {
                 echo $error . '<br>';
@@ -99,12 +55,12 @@ if (Input::exists()) {
 <form action="" method="post">
     <?php echo Session::flash('success'); ?>
     <div class="field">
-        <label for="user_name">Username</label>
+        <label for="username">Username</label>
         <input type="text" name="user_name" value="<?php echo Input::get('user_name'); ?>">
     </div>
     <div class="field">
         <label for="email">Email</label>
-        <input type="email" name="email" value="<?php echo Input::get('email'); ?>">
+        <input type="text" name="email" value="<?php echo Input::get('email'); ?>">
     </div>
     <div class="field">
         <label for="password">Password</label>
@@ -120,4 +76,3 @@ if (Input::exists()) {
         <button type="submit">Submit</button>
     </div>
 </form>
-
