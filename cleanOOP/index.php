@@ -9,6 +9,7 @@ $user = new User;
 if($user->isLoggedIn()){
     echo "Привет, <a href='#'>{$user->data()->user_name}</a>";
     echo "<p><a href='logout.php'>Выйти</a></p>";
+    echo "<p><a href='update.php'>Изменить</a><?>";
 }else{
     echo "<a href='login.php'>Вход</a> или <a href='register.php'>Зарегестрироваться</a>";
 }

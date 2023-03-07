@@ -2,39 +2,67 @@
 session_start();
 include_once "init.php";
 
-if (Input::exists()) {
-    if (Token::check(Input::get('token'))) {
+if (Input::exists()){
+    if (Token::check(Input::get('token'))){
         $validate = new Validate();
-        $validation = $validate->check($_POST, [
-            'email' => [
-                'required' => true,
-                'min' => 2,
-                'max' => 35,
-            ],
-            'password' => [
-                'required' => true,
-                'min' => 3,
-            ],
+
+        $validate->check($_POST, [
+           'email' => ['required' => true, 'email' => true],
+            'password' => ['required' => true]
         ]);
 
-        //	var_dump($validation->errors());
-
-        if ($validation->passed()){
+        if ($validate->passed()){
             $user = new User();
-            $login = $user->login(Input::get('email'), Input::get('password'));
+            $remember = (Input::get('remember')) === 'on' ? true : false;
+            $login = $user->login(Input::get('email'), Input::get('password'), $remember);
 
             if ($login){
-                echo 'Успешный логин';
+                Redirect::to('index.php');
             }else{
-                echo 'Не успешный логин';
+                echo 'login failed';
             }
-        } else {
-            foreach ($validation->errors() as $error) {
+        }else{
+            foreach ($validate->errors() as $error){
                 echo $error . '<br>';
             }
         }
     }
 }
+
+
+//if (Input::exists()) {
+//    if (Token::check(Input::get('token'))) {
+//        $validate = new Validate();
+//        $validation = $validate->check($_POST, [
+//            'email' => [
+//                'required' => true,
+//                'min' => 2,
+//                'max' => 35,
+//            ],
+//            'password' => [
+//                'required' => true,
+//                'min' => 3,
+//            ],
+//        ]);
+//
+//        //	var_dump($validation->errors());
+//
+//        if ($validation->passed()){
+//            $user = new User();
+//            $login = $user->login(Input::get('email'), Input::get('password'));
+//
+//            if ($login){
+//                echo 'Успешный логин';
+//            }else{
+//                echo 'Не успешный логин';
+//            }
+//        } else {
+//            foreach ($validation->errors() as $error) {
+//                echo $error . '<br>';
+//            }
+//        }
+//    }
+//}
 
 ?>
 

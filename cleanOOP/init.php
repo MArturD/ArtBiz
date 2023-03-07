@@ -2,6 +2,7 @@
 session_start();
 include_once "classes/Config.php";
 include_once "classes/Database.php";
+include_once "classes/Cookie.php";
 include_once "classes/Validate.php";
 include_once "classes/Input.php";
 include_once "classes/Token.php";
@@ -9,7 +10,6 @@ include_once "classes/Session.php";
 include_once "test.php";
 include_once "classes/User.php";
 include_once "classes/Redirect.php";
-include_once "classes/Cookie.php";
 
 
 //Database::getInstance()->insert('users', [
@@ -46,11 +46,11 @@ $GLOBALS["config"] = [
 
 ];
 if (Cookie::exists(Config::get('cookie.cookie_name')) && !Session::exists(Config::get('session.user_session'))){
-    $hach = Cookie::get(Config::get('cookie.cookie_name'));
-    $hachCheck = Database::getInstance()->get('user_session', ['hach', '=', $hach]);
+    $hash = Cookie::get(Config::get('cookie.cookie_name'));
+    $hashCheck = Database::getInstance()->get('user_session', ['hash', '=', $hash]);
 
-    if ($hachCheck->count()){
-        $user = new User($hachCheck->first()->user_id);
+    if ($hashCheck->count()){
+        $user = new User($hashCheck->first()->user_id);
         $user->login();
     }
 }
