@@ -103,7 +103,7 @@ class User
     public function hasPermissions($key = null){
         $group = $this->db->get('user_groups', ['id', '=', $this->data()->group_id]);
 //        $groupID = $this->data()->group_id;
-//        $group = $this->db->get('user_groups', ['id', '=', $groupID] );
+//        $group = $this->db->get('user_groupscomphp', ['id', '=', $groupID] );
         if ($group->count()) {
             $permissions = $group->first()->permissions;
             $permissions = json_decode($permissions, true);
