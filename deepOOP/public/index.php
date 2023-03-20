@@ -13,7 +13,7 @@ require '../vendor/autoload.php';
 //};
 
 
-\Tamtamchik\SimpleFlash\flash()->message("kufjg");
+\Tamtamchik\SimpleFlash\flash()->message("ОШИБКА ПЕРЕСТАНЬ ПРОГРАММИРОВАТЬ", 'success');
 // Create new Plates instance
 $templates = new League\Plates\Engine('../app/views');
 
