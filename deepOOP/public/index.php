@@ -1,23 +1,23 @@
 <?php
+
+
+if( !session_id() ) {
+    session_start();
+}
+
 require '../vendor/autoload.php';
-use App\QueryBuilder;
 
-$db = new \App\QueryBuilder();
-
-$result = $db->getAll('posts');
- var_dump($result);
-
-// $data = [
-//     "title" => "New" . date('U')
-// ];
-
-//$db->insert([
-//    "title" => "new Gid"
-//], 'posts');
-
-//$db->update([
-//    'title' => 'Gid new'
-//], 2, 'posts');
+//if ($_SERVER['REQUEST_URI'] == '/deepOOP/public/home'){
+//    require '../app/controllers/homepage.php';
+//
+//};
 
 
-$db->delete('posts', 2);
+\Tamtamchik\SimpleFlash\flash()->message("kufjg");
+// Create new Plates instance
+$templates = new League\Plates\Engine('../app/views');
+
+// Render a template
+echo $templates->render('homepage', ['name' => 'Artur']);
+
+//d($templates);
