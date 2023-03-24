@@ -2,7 +2,7 @@
 //include_once "../function.php";
 //$route = $_SERVER["REQUEST_URI"];
 //$routes = [
-//    "/thinkingOOP/" => "functions/homepage.php",
+//    "/thinkingOOP/" => "functions/HomeController.php",
 //    "/thinkingOOP/about" => "../functions/about.php",
 //];
 //echo $route;
