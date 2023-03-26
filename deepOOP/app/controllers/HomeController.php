@@ -3,6 +3,7 @@
 
 namespace App\controllers;
 use App\QueryBuilder;
+use Exception;
 use League\Plates\Engine;
 
 
@@ -27,8 +28,21 @@ class HomeController{
 
     public function about($vars){
 
-        echo $this->templates->render('about', ['nameHome' => 'THIS ABOUT']);
+        try {
+            $this->withdraw(15);
+        }catch (Exception $exception){
+            \Tamtamchik\SimpleFlash\flash()->error($exception->getMessage());
+        }
+        echo $this->templates->render('about', ['name' => 'THIS ABOUT']);
 
+    }
+
+     public function withdraw($amount = 1){
+        $total = 10;
+
+        if ($amount > $total){
+            throw new Exception('Нет денег');
+        }
     }
 }
 

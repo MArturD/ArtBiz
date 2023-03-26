@@ -7,6 +7,10 @@ if (!session_id()) {
 
 require '../vendor/autoload.php';
 
+
+
+
+
 //if ($_SERVER['REQUEST_URI'] == '/deepOOP/public/home'){
 //    require '../app/controllers/HomeController.php';
 //
