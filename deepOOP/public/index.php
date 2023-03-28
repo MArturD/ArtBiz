@@ -32,6 +32,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/deepOOP/public/about', ['App\controllers\HomeController', 'about']);
     // {id} must be a number (\d+)
     $r->addRoute('GET', '/deepOOP/user/{id:\d+}', ['App\controllers\HomeController', 'index']);
+    $r->addRoute('GET', '/deepOOP/public/about/{amount:\d+}', ['App\controllers\HomeController', 'about']);
     // The /{title} suffix is optional
     $r->addRoute('GET', '/deepOOP/articles/{id:\d+}[/{title}]', 'get_article_handler');
 });

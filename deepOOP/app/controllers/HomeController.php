@@ -2,6 +2,8 @@
 
 
 namespace App\controllers;
+use App\exceptions\AccountIsBlockedException;
+use App\exceptions\NotEnoughMoneyExceptions;
 use App\QueryBuilder;
 use Exception;
 use League\Plates\Engine;
@@ -27,11 +29,12 @@ class HomeController{
     }
 
     public function about($vars){
-
         try {
-            $this->withdraw(15);
-        }catch (Exception $exception){
-            \Tamtamchik\SimpleFlash\flash()->error($exception->getMessage());
+            $this->withdraw($vars['amount']);
+        }catch (NotEnoughMoneyExceptions $exception){
+            \Tamtamchik\SimpleFlash\flash()->error('Ваш баланс меньше чем' . $vars['amount']);
+        }catch (AccountIsBlockedException $exception){
+            \Tamtamchik\SimpleFlash\flash()->error('Ваш аккаунт временно заблокирован');
         }
         echo $this->templates->render('about', ['name' => 'THIS ABOUT']);
 
@@ -40,8 +43,10 @@ class HomeController{
      public function withdraw($amount = 1){
         $total = 10;
 
+//        throw new AccountIsBlockedException('Ваш аккаунт в бане,выйди от сюда');
+
         if ($amount > $total){
-            throw new Exception('Нет денег');
+            throw new NotEnoughMoneyExceptions('Нет денег' . $amount);
         }
     }
 }
