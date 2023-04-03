@@ -9,6 +9,13 @@ require '../vendor/autoload.php';
 
 
 
+//var_dump(SimpleMail::make()
+//    ->setTo('2004misiryun@gmail.com', 'Gidrol')
+////    ->setFrom('200misiryun@gmail.com', 'Admin')
+//    ->setMessage('Salam')
+//    ->send());
+
+
 
 
 //if ($_SERVER['REQUEST_URI'] == '/deepOOP/public/home'){
@@ -30,6 +37,9 @@ require '../vendor/autoload.php';
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/deepOOP/public/home', ['App\controllers\HomeController', 'index']);
     $r->addRoute('GET', '/deepOOP/public/about', ['App\controllers\HomeController', 'about']);
+    $r->addRoute('GET', '/deepOOP/public/email_verification', ['App\controllers\HomeController', 'email_verification']);
+    $r->addRoute('GET', '/deepOOP/public/mailer', ['App\controllers\HomeController', 'mailer']);
+    $r->addRoute('GET', '/deepOOP/public/login', ['App\controllers\HomeController', 'login']);
     // {id} must be a number (\d+)
     $r->addRoute('GET', '/deepOOP/user/{id:\d+}', ['App\controllers\HomeController', 'index']);
     $r->addRoute('GET', '/deepOOP/public/about/{amount:\d+}', ['App\controllers\HomeController', 'about']);
