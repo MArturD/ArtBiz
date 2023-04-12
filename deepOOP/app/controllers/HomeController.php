@@ -13,23 +13,25 @@ use PHPMailer\PHPMailer\SMTP;
 
 
 class HomeController{
-    private $templates, $pdo, $auth;
-    public function __construct(){
+    private $templates, $pdo, $auth, $db;
+    public function __construct(QueryBuilder $db){
+        $this->db = $db;
         $this->templates = new Engine('../app/views');
         $this->pdo = new PDO("mysql:host=localhost;dbname=app3;", "root", "");
         $this->auth = new \Delight\Auth\Auth($this->pdo);
 
     }
 
-    public function index($vars){
+    public function index(){
 
-        $db = new QueryBuilder();
+//        $db = new QueryBuilder(); // замена
 //        $this->auth->logOut();
+//        d($this->db);
         $this->auth->login('12113qwe@gmail.com', '1122');
         d($this->auth->getRoles());
         $this->auth->admin()->addRoleForUserById(3, \Delight\Auth\Role::ADMIN);
 
-        $posts = $db->getAll('posts');
+        $posts = $this->db->getAll('posts');
 
         echo $this->templates->render('homepage', ['postsView' => $posts]);
 

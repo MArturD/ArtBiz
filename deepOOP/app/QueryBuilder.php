@@ -8,14 +8,17 @@ use PDO;
 
 class QueryBuilder
 {
-    private $pdo, $queryFactory;
+    public $pdo, $queryFactory;
 
     public function __construct()
     {
         $this->pdo = new PDO("mysql:host=localhost;dbname=app3;", "root", "");
         $this->queryFactory = new QueryFactory('mysql');
-
     }
+
+//    public function getPDO(){
+//        return $this->pdo;
+//    }
 
     public function getAll($table)
     {
@@ -33,7 +36,6 @@ class QueryBuilder
     {
         $insert = $this->queryFactory->newInsert();
         $insert->into($table)->cols($data);
-
         $sth = $this->pdo->prepare($insert->getStatement());
         $sth->execute($insert->getBindValues());
     }

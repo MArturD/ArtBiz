@@ -5,8 +5,11 @@ if (!session_id()) {
     session_start();
 }
 
+
 require '../vendor/autoload.php';
 
+$containerBuilder = new \DI\ContainerBuilder();
+$container = $containerBuilder->build();
 
 
 //var_dump(SimpleMail::make()
@@ -69,10 +72,11 @@ switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::FOUND:
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
+        $container->call($handler, $vars);
 
-        $controller = new $handler[0];
-
-        call_user_func([$controller, $handler[1]], $vars);
+//        $controller = new $handler[0];
+//
+//        call_user_func([$controller, $handler[1]], $vars);
         break;
 }
 
